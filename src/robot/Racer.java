@@ -10,7 +10,7 @@ import lejos.robotics.navigation.DifferentialPilot;
  */
 
 /**
- * @author khoatran
+ * @author Khoa Tran, Phuoc Nguyen
  *
  */
 public class Racer {
