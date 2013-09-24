@@ -4,7 +4,7 @@
 package milestone1;
 
 /**
- * @author khoatran
+ * @author Khoa Tran, Phuoc Nguyen
  *
  */
 public class Milestone1 {
