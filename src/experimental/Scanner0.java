@@ -1,3 +1,4 @@
+package experimental;
 import lejos.nxt.*;
 import lejos.nxt.comm.RConsole;
 import lejos.util.*;
@@ -20,7 +21,7 @@ public class Scanner0 {
 	/**
 	 * measured angle to the brightest light.
 	 */
-	private int _bearing;
+	private int _angle;
 	private int _maxLight;
 
 	/**
@@ -43,11 +44,10 @@ public class Scanner0 {
 		_maxLight = 0;
 		head.rotateTo(limit, true);
 		while (head.isMoving()) {
-			int angle = head.getTachoCount();
 			light = eye.getLightValue();
 			if (light > _maxLight) {
 				_maxLight = light;
-				_bearing = head.getTachoCount();
+				_angle = head.getTachoCount();
 			}
 		}
 	}
