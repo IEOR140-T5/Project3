@@ -78,7 +78,7 @@ public class Scanner {
 	
 	/**
 	 * Scans for obstacles - Milestone 2
-	 * @param angle
+	 * @param angle - the angle to scan at
 	 */
 	public void scanObstacle(int angle) {
 	}
