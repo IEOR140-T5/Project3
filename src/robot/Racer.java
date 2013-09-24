@@ -1,4 +1,10 @@
 package robot;
+
+import lejos.nxt.Motor;
+import lejos.nxt.LightSensor;
+import lejos.nxt.SensorPort;
+import lejos.robotics.navigation.DifferentialPilot;
+
 /**
  * 
  */
@@ -20,17 +26,21 @@ public class Racer {
 	 */
 	private Scanner scanner;
 	private double originalDistance;
+	public DifferentialPilot pilot;
 
 	/**
 	 * 
 	 */
-	public Racer(Scanner s) {
+	public Racer(Scanner s, DifferentialPilot dp) {
 		scanner = s;
+		pilot = dp;
 		originalDistance = trackLength * ftToCm;
 	}
 	
-	public void toLight() {
-		
+	public void toLight(double angle) {
+		while (scanner.maxLight() > 30){
+			pilot.steer(scanner.getAngle());
+		}
 	}
 
 }
