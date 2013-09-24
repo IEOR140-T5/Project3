@@ -26,7 +26,7 @@ public class PolarPoint {
 	/**
 	 * @return distance of polar point
 	 */
-	public int getDistance() {
+	public int getMaxLight() {
 		return distance;
 	}
 	
@@ -41,7 +41,7 @@ public class PolarPoint {
 	 * Sets the distance of polar point
 	 * @param dist
 	 */
-	public void setDistance(int dist) {
+	public void setMaxLight(int dist) {
 		distance = dist;
 	}
 	
