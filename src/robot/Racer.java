@@ -1,5 +1,6 @@
 package robot;
 
+import lejos.nxt.LCD;
 import lejos.nxt.Motor;
 import lejos.nxt.LightSensor;
 import lejos.nxt.SensorPort;
@@ -21,13 +22,13 @@ public class Racer {
 	 */
 	public static final int TRACKLENGTH = 20; // in ft
 	public static final double FTTOCM = 30.48;
-	public static final int THRESHOLD = 30;
+	public static final int THRESHOLD = 75;
 	
 	/**
 	 * Instance variables
 	 */
 	private Scanner scanner;
-	private double originalDistance;
+	private double originalDistance = 0;
 	private DifferentialPilot pilot;
 
 	/**
@@ -47,6 +48,7 @@ public class Racer {
 	 */
 	public void toLight() {
 		double distanceFromLight = originalDistance;
+		/*
 		for (int i = 0; i < 2; i++) {
 			while (distanceFromLight > THRESHOLD) {
 				scanner.scan();
@@ -56,7 +58,19 @@ public class Racer {
 			}
 			turnAround();
 			distanceFromLight = originalDistance;
+		} */
+		while (scanner.xLight < THRESHOLD){
+			scanner.rotateTo(-30, true);
+			scanner.scanTo(60);
+			pilot.steer(scanner.xAngle);
+			scanner.scanTo(-60);
+			scanner.rotateTo(0, true);
+			pilot.steer(scanner.xAngle);
+			
+			LCD.drawInt((int) scanner.xAngle, 0, 0);
+			
 		}
+		turnAround();
 	}
 	
 	/**
