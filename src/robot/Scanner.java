@@ -19,7 +19,8 @@ public class Scanner {
 	 */
 	private NXTRegulatedMotor motor;
 	private LightSensor eye;
-	private PolarPoint highestLight;
+	public int xAngle = 0;
+	public int xLight = 0;
 	
 	/**
 	 * 
@@ -27,42 +28,10 @@ public class Scanner {
 	public Scanner(NXTRegulatedMotor theMotor, LightSensor theEye) {
 		motor = theMotor;
 		motor.setSpeed(500);
-		motor.setAcceleration(4000);;
+		motor.setAcceleration(4000);
 		eye = theEye;
 		eye.setFloodlight(false);
-		highestLight = new PolarPoint(0, 0);
 	}
-	
-	/**
-	 * Scans for lights and obstacles, rotating from -45 to 45
-	 */
-	public void scan() {
-		
-		int startAngle = -3;
-		motor.rotateTo(startAngle, true);
-		int oldAngle = motor.getTachoCount();
-		
-		// Scan from -45 to 45
-		while (motor.isMoving()) {
-			motor.rotate(90, true);
-			int angle = motor.getTachoCount();
-			if (angle != oldAngle) {
-				scanLights(angle);
-			}
-		}
-		
-		// Scan the other way from 45 to -45
-		while (motor.isMoving()) {
-			motor.rotate(-90, true);
-			int angle = motor.getTachoCount();
-			if (angle != oldAngle) {
-				scanLights(angle);
-			}
-		} 
-	}
-	
-	public int xAngle = 0;
-	public int xLight = 0;
 	
 	/**
 	 * 
@@ -81,18 +50,6 @@ public class Scanner {
 			}
 		}
 	}
-		
-	/**
-	 * Scans for lights
-	 * @param angle - the angle to scan at
-	 */
-	public void scanLights(int angle) {
-		int lv = eye.getLightValue();
-		if (lv > highestLight.getMaxLight()) {
-			highestLight.setMaxLight(lv);
-			highestLight.setAngle(angle);
-		}
-	}
 	
 	/**
 	 * rotate the scanner head to the angle
@@ -103,13 +60,6 @@ public class Scanner {
 	 */
 	public void rotateTo(int angle, boolean instantReturn) {
 		motor.rotateTo(angle, instantReturn);
-	}
-	
-	/**
-	 * Gets light location
-	 */
-	public PolarPoint getLights() {
-		return highestLight;
 	}
 	
 	/**

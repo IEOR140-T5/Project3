@@ -22,7 +22,7 @@ public class Racer {
 	 */
 	public static final int TRACKLENGTH = 20; // in ft
 	public static final double FTTOCM = 30.48;
-	public static final int THRESHOLD = 75;
+	public static final double THRESHOLD = 52;
 	
 	/**
 	 * Instance variables
@@ -48,29 +48,31 @@ public class Racer {
 	 */
 	public void toLight() {
 		double distanceFromLight = originalDistance;
-		/*
 		for (int i = 0; i < 2; i++) {
-			while (distanceFromLight > THRESHOLD) {
-				scanner.scan();
-				PolarPoint lightLocations = scanner.getLights();
-				toAngle(lightLocations.getAngle());
-				distanceFromLight = lightLocations.getMaxLight();
+			while (scanner.xLight < THRESHOLD){
+				scanner.rotateTo(-30, true);
+				scanner.scanTo(60);
+				toAngle(scanner.xAngle);
+				scanner.scanTo(-60);
+				toAngle(scanner.xAngle);
+				scanner.rotateTo(0, true);
+				LCD.drawInt((int) scanner.xLight, 0, 0);
 			}
 			turnAround();
-			distanceFromLight = originalDistance;
-		} */
-		while (scanner.xLight < THRESHOLD){
-			scanner.rotateTo(-30, true);
-			scanner.scanTo(60);
-			pilot.steer(scanner.xAngle);
-			scanner.scanTo(-60);
-			scanner.rotateTo(0, true);
-			pilot.steer(scanner.xAngle);
+			scanner.xLight = 0;
 			
-			LCD.drawInt((int) scanner.xAngle, 0, 0);
-			
+			while (scanner.xLight < 58){
+				scanner.rotateTo(-30, true);
+				scanner.scanTo(60);
+				toAngle(scanner.xAngle);
+				scanner.scanTo(-60);
+				toAngle(scanner.xAngle);
+				scanner.rotateTo(0, true);
+				LCD.drawInt((int) scanner.xLight, 0, 0);
+			}
+			turnAround();
+			scanner.xLight = 0;
 		}
-		turnAround();
 	}
 	
 	/**
