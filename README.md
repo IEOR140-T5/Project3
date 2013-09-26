@@ -14,10 +14,17 @@ we implemented a toLight() method in our Racer.java s.t. our scanner object comp
 its current light sensor reading with two different constant light THRESHOLD's that we
 deemed optimal based on the experimental work via ScanRecorder.java. (graph provided below)
 The scanTo() method in Scanner.java rotates the light sensor to the input degree, (in our
-case, its between -30 and 60 degrees) calculates the tacho count of the respective motor,
+case, its between -60 and 60 degrees) calculates the tacho count of the respective motor,
 and while it is doing this, the LightSensor's getLightValue() method is being called to
 determine the the maximum light value at the robots current position. This value is defined
-in Scanner.java as xLight. Racer.java's toAngle() method is called based on the the Scanner's
+in Scanner.java as xLight. 
+
+When we first tested the light intensity, we got different values for both light as one is 
+brighter than the other. On our demonstration day, proffesor changes the light bulbs that makes
+the light intensity of both lights are the same. At first, we used two different THREADHOLD for
+2 light bulbs but now we use only one because the light intensity is the same.
+
+Racer.java's toAngle() method is called based on the the Scanner's
 tacho count in scanTo() which calls the differential pilot to steer the robot the direction
 of xLight. The trick we used to make this effiecnt was to add the case if our xLight is
 greater than our pre-set THRESHOLD we stop the robot and put it to sleep for 300 ms. This
