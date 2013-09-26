@@ -1,6 +1,3 @@
-/**
- * 
- */
 package milestone1;
 
 import lejos.nxt.Button;
@@ -10,7 +7,6 @@ import lejos.nxt.NXTRegulatedMotor;
 import lejos.nxt.Sound;
 import lejos.nxt.LightSensor;
 import lejos.nxt.SensorPort;
-import lejos.util.ButtonCounter;
 import lejos.robotics.navigation.DifferentialPilot;
 import robot.*;
 
@@ -35,6 +31,7 @@ public class Milestone1 {
 		Scanner scanner = new Scanner(sensorMotor, new LightSensor(SensorPort.S2));
 		Racer racer = new Racer(scanner, pilot);
 		
+		// Wait for a press, and GO GO GO
 		Button.waitForAnyPress();
 		racer.toLight();
 	}

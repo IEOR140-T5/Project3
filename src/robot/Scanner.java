@@ -1,6 +1,3 @@
-/**
- * 
- */
 package robot;
 
 import java.util.ArrayList;
@@ -9,8 +6,9 @@ import lejos.nxt.LightSensor;
 import lejos.nxt.NXTRegulatedMotor;
 
 /**
- * @author khoatran
- *
+ * Scanner class which implements logic for scanning lights and obstacles
+ * Adapted from ScanRecorder.java in the skeleton
+ * @author Corey Short, Khoa Tran
  */
 public class Scanner {
 
@@ -23,7 +21,9 @@ public class Scanner {
 	public int xLight = 0;
 	
 	/**
-	 * 
+	 * Constructor for Scanner class that takes in the motor and lightsensor as params
+	 * @param theMotor - motor of the robot
+	 * @param theEye - light sensor to detect the lights
 	 */
 	public Scanner(NXTRegulatedMotor theMotor, LightSensor theEye) {
 		motor = theMotor;
@@ -34,8 +34,8 @@ public class Scanner {
 	}
 	
 	/**
-	 * 
-	 * @param limit
+	 * Scans to a certain angle
+	 * @param limit - the angle to scan to
 	 */
 	public void scanTo(int limit) {
 		int light;
@@ -52,11 +52,9 @@ public class Scanner {
 	}
 	
 	/**
-	 * rotate the scanner head to the angle
-	 * 
-	 * @param angle
-	 * @param instantReturn
-	 *            if true, the method is non-blocking
+	 * Rotates the scanner head to the angle
+	 * @param angle - how much to rotate to
+	 * @param instantReturn - if true, we don't wait until the whole rotate process completes
 	 */
 	public void rotateTo(int angle, boolean instantReturn) {
 		motor.rotateTo(angle, instantReturn);

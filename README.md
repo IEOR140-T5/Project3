@@ -1,10 +1,17 @@
-Project3
-========
+Project3 - Obstacle Race
+========================
 
 **Team Members**: Trevor Davenport, Phuoc Nguyen, Khoa Tran, Corey Short  
 
-**Brief Description**: TODO    
+**Brief Description**: TODO      
 
-**Approximate Number of Hours**: TODO      
+## Milestone 1 Report    
 
-**Project Repository Location**: https://github.com/IEOR140-T5/Project3/
+### Control Scheme to Keep the Robot Moving toward the Light     
+TODO    
+
+### Relationship between Classes and Methods for the Tasks and Sub-tasks    
+TODO    
+
+### Graph Output of ScanRecorder.java, and How We Use this Data   
+TODO
