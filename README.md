@@ -21,8 +21,16 @@ in Scanner.java as xLight.
 
 When we first tested the light intensity, we got different values for both light as one is 
 brighter than the other. On our demonstration day, proffesor changes the light bulbs that makes
-the light intensity of both lights are the same. At first, we used two different THREADHOLD for
+the light intensity of both lights are the same. At first, we used two different THRESHOLD for
 2 light bulbs but now we use only one because the light intensity is the same.
+
+Another problem that we ran into when doing this Milestone is that the light bulb is too high for 
+the light sensor that makes it unable to detect the right value of the light intensity. We all 
+agreed to raise up the Light Sensor a little bit so it can detect the light value accurately.
+
+For some cases, the light sensor detect the reflection of the light on the wall. We fixed it by
+raising up the THRESHOLD value, because the light intensity from the light bulb is bigger than
+the one reflected on the wall.
 
 Racer.java's toAngle() method is called based on the the Scanner's
 tacho count in scanTo() which calls the differential pilot to steer the robot the direction
