@@ -1,7 +1,5 @@
 package robot;
 
-import java.util.ArrayList;
-
 import lejos.nxt.LightSensor;
 import lejos.nxt.NXTRegulatedMotor;
 
@@ -17,8 +15,8 @@ public class Scanner {
 	 */
 	private NXTRegulatedMotor motor;
 	private LightSensor eye;
-	public int xAngle = 0;
-	public int xLight = 0;
+	private int xAngle = 0;
+	private int xLight = 0;
 	
 	/**
 	 * Constructor for Scanner class that takes in the motor and lightsensor as params
@@ -49,6 +47,30 @@ public class Scanner {
 				xAngle = motor.getTachoCount();
 			}
 		}
+	}
+	
+	/**
+	 * Get the current Angle from TachoCount()
+	 * @return xAngle : angle from TachoCount()
+	 */
+	public int getAngle(){
+		return xAngle;
+	}
+	
+	/**
+	 * Get the max Light Value
+	 * @return max light value
+	 */
+	public int getLight(){
+		return xLight;
+	}
+	
+	/**
+	 * Set the Light value
+	 * @param: light value to set 
+	 */
+	public void setLight(int light){
+		xLight = light;
 	}
 	
 	/**
