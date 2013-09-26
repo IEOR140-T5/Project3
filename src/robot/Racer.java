@@ -22,7 +22,8 @@ public class Racer {
 	 */
 	public static final int TRACKLENGTH = 20; // in ft
 	public static final double FTTOCM = 30.48;
-	public static final double THRESHOLD = 52;
+	public static final double THRESHOLD1 = 63; // the one with yellow mark
+	public static final double THRESHOLD = 60;
 	
 	/**
 	 * Instance variables
@@ -49,31 +50,62 @@ public class Racer {
 	public void toLight() {
 		double distanceFromLight = originalDistance;
 		for (int i = 0; i < 2; i++) {
-			while (scanner.xLight < THRESHOLD){
+			while (scanner.xLight < THRESHOLD1){
 				scanner.rotateTo(-30, true);
 				scanner.scanTo(60);
 				toAngle(scanner.xAngle);
+
+				if (scanner.xLight > THRESHOLD1){
+					stopRobot();
+					sleepRobot(300);
+					break;
+				}
 				scanner.scanTo(-60);
 				toAngle(scanner.xAngle);
-				scanner.rotateTo(0, true);
 				LCD.drawInt((int) scanner.xLight, 0, 0);
+				if (scanner.xLight > THRESHOLD1){
+					stopRobot();
+					sleepRobot(300);
+				}
 			}
 			turnAround();
 			scanner.xLight = 0;
 			
-			while (scanner.xLight < 58){
+			while (scanner.xLight < THRESHOLD){
 				scanner.rotateTo(-30, true);
 				scanner.scanTo(60);
 				toAngle(scanner.xAngle);
+				
+				if (scanner.xLight > THRESHOLD1){
+					stopRobot();
+					sleepRobot(300);
+					break;
+				}
 				scanner.scanTo(-60);
 				toAngle(scanner.xAngle);
-				scanner.rotateTo(0, true);
 				LCD.drawInt((int) scanner.xLight, 0, 0);
+				if (scanner.xLight > THRESHOLD){
+					stopRobot();
+					sleepRobot(300);
+				}
+
 			}
 			turnAround();
 			scanner.xLight = 0;
 		}
+		scanner.scanTo(0);
 	}
+	
+	public void stopRobot(){
+		pilot.stop();
+	}
+
+	public void sleepRobot(int ms) {
+		try {
+			Thread.sleep(ms);
+		} catch (InterruptedException e) {
+		}
+	}	
 	
 	/**
 	 * Steers to a specific angle
@@ -87,7 +119,7 @@ public class Racer {
 	 * Turns the robot around at the end of every half
 	 */
 	private void turnAround() {
-		pilot.rotate(180);
+		pilot.rotate(220);
 		pilot.steer(0); // travel straight
 	}
 
