@@ -4,7 +4,8 @@ Project3 - Obstacle Race
 **Team Members**: Trevor Davenport, Phuoc Nguyen, Khoa Tran, Corey Short  
 
 **Brief Description**: Two beacon lights will be set up about 20 feet apart, in middle of the hall outside
-1174 Etcheverry. Your robot starts within 2 feet of one light facing the other and makes 2 round trips.
+1174 Etcheverry. The robot starts within 2 feet of one light facing the other and makes 2 round trips. In future 
+milestones, we will add objects detector and avoider.
 
 ## Milestone 1 Report    
 
@@ -38,7 +39,7 @@ tacho count in scanTo() which calls the differential pilot to steer the robot th
 of xLight. The trick we used to make this effiecnt was to add the case if our xLight is
 greater than our pre-set THRESHOLD we stop the robot and put it to sleep for 500 ms. This
 allows us to effectively call the scanTo() method (which was originally created by professor
-Glassy) again and repeat this process in a loop or break out of the loop and turnaround to 
+Glassey in ScanRecorder.java) again and repeat this process in a loop or break out of the loop and turnaround to 
 start the next lap.
 
 ### Relationship between Classes and Methods for the Tasks and Sub-tasks    
@@ -46,6 +47,13 @@ start the next lap.
 Milestone1.java has the main method for testing and executing our code. It constructs the
 differential pilot and scanner instances to their respective motor and sensor ports on the
 NXT. Then the racer calls the toLight() method as it is described above.
+
+The Racer itself encapsulates a DifferentialPilot object and a Scanner object, so that it 
+can both trace the distance, while search for the lights at the same time
+
+Finally, we package our code to divide up the functionality. The experimental code used to 
+collect the data is separated into one package, while all the robot's essentials are in 
+another. The test code for each Milestone is in their own corresponding package.
 
 ### Graph Output of ScanRecorder.java, and How We Use this Data   
 Based on the graph we are able to determine the light intensity coresponding to each angle
