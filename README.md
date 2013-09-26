@@ -3,7 +3,8 @@ Project3 - Obstacle Race
 
 **Team Members**: Trevor Davenport, Phuoc Nguyen, Khoa Tran, Corey Short  
 
-**Brief Description**: TODO      
+**Brief Description**: Two beacon lights will be set up about 20 feet apart, in middle of the hall outside
+1174 Etcheverry. Your robot starts within 2 feet of one light facing the other and makes 2 round trips.
 
 ## Milestone 1 Report    
 
