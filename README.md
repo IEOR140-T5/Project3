@@ -35,9 +35,10 @@ the one reflected on the wall.
 Racer.java's toAngle() method is called based on the the Scanner's
 tacho count in scanTo() which calls the differential pilot to steer the robot the direction
 of xLight. The trick we used to make this effiecnt was to add the case if our xLight is
-greater than our pre-set THRESHOLD we stop the robot and put it to sleep for 300 ms. This
-allows us to effectively call the scanTo() method again and repeat this process in a loop
-or break out of the loop and turnaround to start the next lap.
+greater than our pre-set THRESHOLD we stop the robot and put it to sleep for 500 ms. This
+allows us to effectively call the scanTo() method (which was originally created by professor
+Glassy) again and repeat this process in a loop or break out of the loop and turnaround to 
+start the next lap.
 
 ### Relationship between Classes and Methods for the Tasks and Sub-tasks    
 
@@ -46,4 +47,11 @@ differential pilot and scanner instances to their respective motor and sensor po
 NXT. Then the racer calls the toLight() method as it is described above.
 
 ### Graph Output of ScanRecorder.java, and How We Use this Data   
-TODO
+Based on the graph we are able to determine the light intensity coresponding to each angle
+from the TachoCount() from Scanner, then the pilot's job is just to steer to that value of
+TachoCount(). Also from the data and graph, we can learn that whether the light sensor scanner
+is accurate or not. Because at first, there was a gap between 2 sides of the light sensor
+that make the value is up/down unexpectedly. Secondly, we did have a flat peak at first because
+the eye's angle we scanned was to large that make a lot of same peak values. The way we fixed
+it was to use another piece of lego (a pipe) so limit the eye angle that makes the eye just
+looks straigth.
