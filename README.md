@@ -26,7 +26,9 @@ or break out of the loop and turnaround to start the next lap.
 
 ### Relationship between Classes and Methods for the Tasks and Sub-tasks    
 
-Milestone.java 
+Milestone1.java has the main method for testing and executing our code. It constructs the
+differential pilot and scanner instances to their respective motor and sensor ports on the
+NXT. Then the racer calls the toLight() method as it is described above.
 
 ### Graph Output of ScanRecorder.java, and How We Use this Data   
 TODO
