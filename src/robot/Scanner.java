@@ -1,7 +1,9 @@
 package robot;
 
 import lejos.nxt.LightSensor;
+import lejos.nxt.UltrasonicSensor;
 import lejos.nxt.NXTRegulatedMotor;
+import lejos.nxt.TouchSensor;
 
 /**
  * Scanner class which implements logic for scanning lights and obstacles
@@ -15,6 +17,9 @@ public class Scanner {
 	 */
 	private NXTRegulatedMotor motor;
 	private LightSensor eye;
+	private UltrasonicSensor ultraSensor;
+	private TouchSensor leftTouchSensor;
+	private TouchSensor rightTouchSensor;
 	private int xAngle = 0;
 	private int xLight = 0;
 	
@@ -28,9 +33,20 @@ public class Scanner {
 		motor.setSpeed(500);
 		motor.setAcceleration(4000);
 		eye = theEye;
-		eye.setFloodlight(false);
+		eye.setFloodlight(false);		
 	}
-	
+
+	public Scanner(NXTRegulatedMotor theMotor, LightSensor theEye, UltrasonicSensor ussensor, TouchSensor left, TouchSensor right) {
+		motor = theMotor;
+		motor.setSpeed(500);
+		motor.setAcceleration(4000);
+		eye = theEye;
+		eye.setFloodlight(false);
+		ultraSensor = ussensor;
+		leftTouchSensor = left;
+		rightTouchSensor = right;
+		
+	}
 	/**
 	 * Scans to a certain angle
 	 * @param limit - the angle to scan to
@@ -82,10 +98,15 @@ public class Scanner {
 		motor.rotateTo(angle, instantReturn);
 	}
 	
-	/**
-	 * Scans for obstacles - Milestone 2
-	 * @param angle - the angle to scan at
-	 */
-	public void scanObstacle(int angle) {
+	public UltrasonicSensor getUltrasonicSensor(){
+		return ultraSensor;
+	}
+	
+	public TouchSensor getLeftTouchSensor(){
+		return leftTouchSensor;
+	}
+	
+	public TouchSensor getRightTouchSensor(){
+		return rightTouchSensor;
 	}
 }

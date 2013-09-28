@@ -19,6 +19,7 @@ public class Racer {
 	 */
 	private Scanner scanner;
 	private DifferentialPilot pilot;
+	private int distanceLimit = 50;
 
 	/**
 	 * Constructor for Racer, which takes in a Scanner and a DifferentialPilot
@@ -85,6 +86,31 @@ public class Racer {
 	}
 
 	/**
+	 * Main method for Milestone 2
+	 */
+	public void findLight(){
+		scanner.rotateTo(0, true);
+		Detector detector = new Detector();
+		detector.start();
+				
+		while (!detector.isDetected){
+			scanner.scanTo(60);
+			toAngle(scanner.getAngle());
+			LCD.drawInt((int) scanner.getLight(), 0, 0);
+			scanner.scanTo(-60);
+			toAngle(scanner.getAngle());
+			LCD.drawInt((int) scanner.getLight(), 0, 0);
+			if (detector.isDetected){
+				stopRobot();
+				sleepRobot(1000);
+				
+			}
+			Thread.yield();
+		}
+		
+	}
+
+	/**
 	 * Stops the robot
 	 */
 	public void stopRobot() {
@@ -119,4 +145,41 @@ public class Racer {
 		scanner.rotateTo(0, false);
 		pilot.steer(0); // travel straight
 	}
+	
+
+    /**
+     *here is the inner class definition
+     */
+    class Detector extends Thread {
+
+        boolean isDetected = false; 
+
+        public void run(){
+            while (!isDetected){
+            	LCD.drawInt((int) getDistance(), 5, 5);
+            	
+            	if (getDistance() < distanceLimit ){
+            		isDetected = true;
+            	} 
+            	if (isLeftTouched() || isRightTouched()){
+            		isDetected = true;
+            	}
+            Thread.yield();
+            }
+            //isDetected = false;
+        }
+        
+    	public int getDistance(){
+    		return scanner.getUltrasonicSensor().getDistance();
+    	}
+    	
+    	public boolean isLeftTouched(){
+    		return scanner.getLeftTouchSensor().isPressed();
+    	}
+    	
+    	public boolean isRightTouched(){
+    		return scanner.getRightTouchSensor().isPressed();
+    	}
+    }
+
 }
