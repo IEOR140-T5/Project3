@@ -101,9 +101,7 @@ public class Racer {
 			toAngle(scanner.getAngle());
 			LCD.drawInt((int) scanner.getLight(), 0, 0);
 			if (detector.isDetected){
-				stopRobot();
-				sleepRobot(1000);
-				
+				whenDetected();
 			}
 			Thread.yield();
 		}
@@ -111,11 +109,21 @@ public class Racer {
 	}
 
 	/**
+	 * Tasks to perform when object is detected
+	 */
+	public void whenDetected() {
+		stopRobot();
+		sleepRobot(1000);
+		pilot.travel(-10);
+	}
+	
+	/**
 	 * Stops the robot
 	 */
 	public void stopRobot() {
 		pilot.stop();
 	}
+	
 
 	/**
 	 * Sleeps the robot
@@ -169,14 +177,24 @@ public class Racer {
             //isDetected = false;
         }
         
+        /*
+         * Return distance from the reading from Ultrasonic Sensor
+         */
+        
     	public int getDistance(){
     		return scanner.getUltrasonicSensor().getDistance();
     	}
     	
+    	/*
+         * Return True/False when the Left Touch Sensor is touched
+         */
     	public boolean isLeftTouched(){
     		return scanner.getLeftTouchSensor().isPressed();
     	}
     	
+    	/*
+         * Return True/False when the Right Touch Sensor is touched
+         */
     	public boolean isRightTouched(){
     		return scanner.getRightTouchSensor().isPressed();
     	}
