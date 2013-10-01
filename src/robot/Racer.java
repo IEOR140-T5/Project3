@@ -1,6 +1,7 @@
 package robot;
 
 import lejos.nxt.LCD;
+import lejos.nxt.Button;
 import lejos.robotics.navigation.DifferentialPilot;
 
 /**
@@ -20,6 +21,7 @@ public class Racer {
 	private Scanner scanner;
 	private DifferentialPilot pilot;
 	private int distanceLimit = 50;
+	private static boolean isDetected = false;
 
 	/**
 	 * Constructor for Racer, which takes in a Scanner and a DifferentialPilot
@@ -93,7 +95,8 @@ public class Racer {
 		Detector detector = new Detector();
 		detector.start();
 				
-		while (!detector.isDetected){
+		//while (!detector.isDetected){
+		while (true){
 			scanner.scanTo(60);
 			toAngle(scanner.getAngle());
 			LCD.drawInt((int) scanner.getLight(), 0, 0);
@@ -102,8 +105,13 @@ public class Racer {
 			LCD.drawInt((int) scanner.getLight(), 0, 0);
 			if (detector.isDetected){
 				whenDetected();
+				Button.ENTER.waitForPressAndRelease();
+				
+				scanner.rotateTo(0, true);
+				detector = new Detector();
+				detector.start();
 			}
-			Thread.yield();
+			//Thread.yield();
 		}
 		
 	}
@@ -114,7 +122,8 @@ public class Racer {
 	public void whenDetected() {
 		stopRobot();
 		sleepRobot(1000);
-		pilot.travel(-10);
+		pilot.travel(-30);
+		isDetected = false;
 	}
 	
 	/**
@@ -172,8 +181,9 @@ public class Racer {
             	if (isLeftTouched() || isRightTouched()){
             		isDetected = true;
             	}
-            Thread.yield();
+            
             }
+            Thread.yield();
             //isDetected = false;
         }
         

@@ -38,8 +38,10 @@ public class Scanner {
 
 	public Scanner(NXTRegulatedMotor theMotor, LightSensor theEye, UltrasonicSensor ussensor, TouchSensor left, TouchSensor right) {
 		motor = theMotor;
-		motor.setSpeed(500);
-		motor.setAcceleration(4000);
+		//motor.setSpeed(500);
+		//motor.setAcceleration(4000);
+		motor.setSpeed(300);
+		motor.setAcceleration(1000);
 		eye = theEye;
 		eye.setFloodlight(false);
 		ultraSensor = ussensor;
