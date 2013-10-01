@@ -20,7 +20,7 @@ public class Racer {
 	 */
 	private Scanner scanner;
 	private DifferentialPilot pilot;
-	private int distanceLimit = 50;
+	private int distanceLimit = 30;
 	private static boolean isDetected = false;
 
 	/**
@@ -107,7 +107,7 @@ public class Racer {
 				whenDetected();
 				Button.ENTER.waitForPressAndRelease();
 				
-				scanner.rotateTo(0, true);
+				
 				detector = new Detector();
 				detector.start();
 			}
@@ -120,9 +120,10 @@ public class Racer {
 	 * Tasks to perform when object is detected
 	 */
 	public void whenDetected() {
-		stopRobot();
-		sleepRobot(1000);
+		//stopRobot();
+		//sleepRobot(1000);
 		pilot.travel(-30);
+		scanner.rotateTo(0, true);
 		isDetected = false;
 	}
 	
@@ -177,13 +178,15 @@ public class Racer {
             	
             	if (getDistance() < distanceLimit ){
             		isDetected = true;
+            		stopRobot();
             	} 
             	if (isLeftTouched() || isRightTouched()){
             		isDetected = true;
+            		stopRobot();
             	}
-            
-            }
             Thread.yield();
+            }
+            
             //isDetected = false;
         }
         
