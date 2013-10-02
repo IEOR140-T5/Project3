@@ -63,4 +63,12 @@ is accurate or not. Because at first, there was a gap between 2 sides of the lig
 that make the value is up/down unexpectedly. Secondly, we did have a flat peak at first because
 the eye's angle we scanned was to large that make a lot of same peak values. The way we fixed
 it was to use another piece of lego (a pipe) so limit the eye angle that makes the eye just
-looks straigth.
+looks straigth.     
+
+## Milestone 2 Report   
+### Responsibilities of the classes designed for this milestone   
+* Detector:
+* Racer:
+* Scanner:    
+
+### Task analysis and Brief Description for Object Detection     
