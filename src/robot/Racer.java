@@ -97,9 +97,25 @@ public class Racer {
 				
 		//while (!detector.isDetected){
 		while (true){
+			if (detector.isDetected){
+				whenDetected();
+				Button.ENTER.waitForPressAndRelease();
+				
+				
+				detector = new Detector();
+				detector.start();
+			}
 			scanner.scanTo(60);
 			toAngle(scanner.getAngle());
 			LCD.drawInt((int) scanner.getLight(), 0, 0);
+			if (detector.isDetected){
+				whenDetected();
+				Button.ENTER.waitForPressAndRelease();
+				
+				
+				detector = new Detector();
+				detector.start();
+			}
 			scanner.scanTo(-60);
 			toAngle(scanner.getAngle());
 			LCD.drawInt((int) scanner.getLight(), 0, 0);
