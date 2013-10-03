@@ -88,5 +88,8 @@ Trial and error allowed us to determine that a proper value to set for the dista
 If either getDistance() is greater than distanceLimit or if the left or right bumpers (as a last result
 or if the UltraSonicSensor is unable to detect an object because it is below its viewing limitations),
 isLeftTouched() and isRIghtTouched() respectiveley, return true for isDetected, the robot is stopped, the
-detecor thread yields and findLight() stops the robot and reveres it.
+detecor thread yields and findLight() stops the robot and reverses it.
+
+**********I DID NOT SEE in the tolight method where the reverse was happening so please fix the last sentence or
+add anything else to this that is needed.********************
 
