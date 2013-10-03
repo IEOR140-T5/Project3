@@ -85,7 +85,6 @@ public class Racer {
 			turnAround();
 			scanner.setLight(0);
 		}
-
 		scanner.scanTo(0);
 	}
 
@@ -124,6 +123,13 @@ public class Racer {
 				Button.ENTER.waitForPressAndRelease();
 				detector = new Detector();
 				detector.start();
+			}
+			
+			if (scanner.getLight() > THRESHOLD) {
+				stopRobot();
+				sleepRobot(500);
+				turnAround();
+				break;
 			}
 		}
 	}
@@ -170,9 +176,9 @@ public class Racer {
 	 * Turns the robot around at the end of every half
 	 */
 	private void turnAround() {
-		pilot.rotate(200);
+		pilot.rotate(220);
 		scanner.rotateTo(0, false);
-		pilot.steer(0); // travel straight
+		//pilot.steer(0); // travel straight
 	}
 
 	/**
