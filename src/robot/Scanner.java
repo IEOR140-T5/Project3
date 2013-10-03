@@ -100,15 +100,24 @@ public class Scanner {
 		motor.rotateTo(angle, instantReturn);
 	}
 	
-	public UltrasonicSensor getUltrasonicSensor(){
+	/**
+	 * @return the ultrasonic sensor
+	 */
+	protected UltrasonicSensor getUltrasonicSensor(){
 		return ultraSensor;
 	}
 	
-	public TouchSensor getLeftTouchSensor(){
+	/**
+	 * @return the left touch sensor
+	 */
+	protected TouchSensor getLeftTouchSensor(){
 		return leftTouchSensor;
 	}
 	
-	public TouchSensor getRightTouchSensor(){
+	/**
+	 * @return the right touch sensor
+	 */
+	protected TouchSensor getRightTouchSensor(){
 		return rightTouchSensor;
 	}
 }

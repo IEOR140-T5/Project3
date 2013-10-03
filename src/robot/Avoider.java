@@ -1,7 +1,4 @@
 package robot;
-/**
- * 
- */
 
 /**
  * @author khoatran
@@ -10,10 +7,9 @@ package robot;
 public class Avoider {
 
 	/**
-	 * 
+	 * Public constructor for Avoider class
 	 */
 	public Avoider() {
 		// TODO Auto-generated constructor stub
 	}
-
 }
