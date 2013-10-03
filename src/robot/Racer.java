@@ -190,7 +190,7 @@ public class Racer {
 		 */
 		public void run() {
 			while (!isDetected) {
-				LCD.drawInt((int) getDistance(), 5, 5);
+				LCD.drawInt((int) getDistance(), 0,1);
 
 				if (getDistance() < distanceLimit) {
 					isDetected = true;
