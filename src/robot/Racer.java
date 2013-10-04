@@ -89,20 +89,24 @@ public class Racer {
 	}
 
 	/**
-	 * Find light for Milestone 2, since we only want to find the light while 
-	 * detecting for obstacles this time
+	 * Find light for Milestone 2, since we want to find the light while 
+	 * detecting obstacles this time
 	 */
 	public void findLight() {
 		scanner.rotateTo(0, true);
 		Detector detector = new Detector();
 		detector.start();
 
+		// Three loops of detectors are necessary to always look out for
+		// detectors while scanning twice back and forth
 		while (true) {
 			if (detector.isDetected) {
 				whenDetected();
 				detector = new Detector();
 				detector.start();
 			}
+			
+			// First scan
 			scanner.scanTo(_scanAngle);
 			toAngle(scanner.getAngle());
 			LCD.drawInt((int) scanner.getLight(), 0, 0);
@@ -112,6 +116,8 @@ public class Racer {
 				detector = new Detector();
 				detector.start();
 			}
+			
+			// Second scan
 			scanner.scanTo(-_scanAngle);
 			toAngle(scanner.getAngle());
 			LCD.drawInt((int) scanner.getLight(), 0, 0);
@@ -122,6 +128,7 @@ public class Racer {
 				detector.start();
 			}
 			
+			// Has the robot found the light?
 			if (scanner.getLight() > THRESHOLD) {
 				stopRobot();
 				sleepRobot(500);
