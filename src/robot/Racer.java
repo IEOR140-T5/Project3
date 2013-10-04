@@ -22,7 +22,7 @@ public class Racer {
 	private Scanner scanner;
 	private DifferentialPilot pilot;
 	private int distanceLimit = 25;
-	private static boolean isDetected = false;
+	private int _scanAngle = 60;
 
 	/**
 	 * Constructor for Racer, which takes in a Scanner and a DifferentialPilot
@@ -100,27 +100,24 @@ public class Racer {
 		while (true) {
 			if (detector.isDetected) {
 				whenDetected();
-				Button.ENTER.waitForPressAndRelease();
 				detector = new Detector();
 				detector.start();
 			}
-			scanner.scanTo(60);
+			scanner.scanTo(_scanAngle);
 			toAngle(scanner.getAngle());
 			LCD.drawInt((int) scanner.getLight(), 0, 0);
 			
 			if (detector.isDetected) {
 				whenDetected();
-				Button.ENTER.waitForPressAndRelease();
 				detector = new Detector();
 				detector.start();
 			}
-			scanner.scanTo(-60);
+			scanner.scanTo(-_scanAngle);
 			toAngle(scanner.getAngle());
 			LCD.drawInt((int) scanner.getLight(), 0, 0);
 			
 			if (detector.isDetected) {
 				whenDetected();
-				Button.ENTER.waitForPressAndRelease();
 				detector = new Detector();
 				detector.start();
 			}
@@ -140,7 +137,7 @@ public class Racer {
 	public void whenDetected() {
 		pilot.travel(-30);
 		scanner.rotateTo(0, true);
-		isDetected = false;
+		Button.ENTER.waitForPressAndRelease();
 	}
 
 	/**
@@ -198,11 +195,7 @@ public class Racer {
 			while (!isDetected) {
 				LCD.drawInt((int) getDistance(), 0,1);
 
-				if (getDistance() < distanceLimit) {
-					isDetected = true;
-					stopRobot();
-				}
-				if (isLeftTouched() || isRightTouched()) {
+				if ((getDistance() < distanceLimit) || (isLeftTouched()) || (isRightTouched()))  {
 					isDetected = true;
 					stopRobot();
 				}
