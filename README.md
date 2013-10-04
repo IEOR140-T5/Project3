@@ -5,7 +5,14 @@ Project3 - Obstacle Race
 
 **Brief Description**: Two beacon lights will be set up about 20 feet apart, in middle of the hall outside
 1174 Etcheverry. The robot starts within 2 feet of one light facing the other and makes 2 round trips. In future 
-milestones, we will add objects detector and avoider.
+milestones, we will add objects detector and avoider.   
+
+**Code**: in our Project3 directory is a `src` directory which contains all the code. We break the code down to 
+different packages. `experimental` indicates that the code there is used for data-collecting purposes. `robot` has 
+all the robot functionalities code needed for all milestones. Finally, we have a separate package for every different 
+milestone to keep our test code clean   
+
+**Javadoc**: can be found in the `doc` directory.
 
 ## Milestone 1 Report    
 
@@ -72,21 +79,39 @@ looks straigth.
 * Racer: The racer class implements the algorithms and logic behind our robot being able to locate and determine light sources.
 
 ### Task analysis and Brief Description for Object Detection  
-For ease of programming and for not having to add more complexity to our code, we decided to implement
+Since we want the Detector to have full access to the Racer's variables, we decided to implement
 the detector class as an inner class of Racer. This seemed like the most straight-forward way to
 implement the multiple threads needed to execute detection as required by the Milestone2 outline. We 
-decided to give the same angle from our LightSensor to the UltraSonicSensor in Scanner.java. However, we
-had an issue with objects being detected too far away or not close enough. So to fix this, we set the
-motor speed and acceleration slower for an overloaded Scanner constructor. This helped our robot scan 
-objects more accurately in our findLight() method in Racer.java. This method starts the detector 
-thread while the robot is scanning. In Detector, which extends Thread for obvious reasons, we used a 
-boolean isDetected, initialized to false, for our run() method. While findLight() is being executed by
-main(), run() uses the ultraSensor's getDistance() to compare objects detected against a a threshold
-we set called distanceLimit. We were not really sure how to set this limit at first because the values 
+decided to give the same angle from our LightSensor to the UltraSonicSensor in Scanner.java.   
+
+However, we had an issue with objects being detected too far away or not close enough. 
+So to fix this, we set the motor speed and acceleration slower for an overloaded Scanner constructor. 
+This helped our robot scanobjects more accurately in our findLight() method in Racer.java. 
+This method starts the detector thread while the robot is scanning.    
+
+In Detector, we used a boolean isDetected, initialized to false, for our run() method. 
+While findLight() is being executed by main(), run() uses the ultraSensor's getDistance() 
+to compare objects detected against a a threshold we set called distanceLimit. 
+We were not really sure how to set this limit at first because the values 
 returned by the ultraSonicSensor did not always fall within the 0-250 range as specified by the leJOS API.
-Trial and error allowed us to determine that a proper value to set for the distanceLimit which is 25.
+Trial and error allowed us to determine that a proper value to set for the distanceLimit, which is 25.
 If either getDistance() is greater than distanceLimit or if the left or right bumpers (as a last result
 or if the UltraSonicSensor is unable to detect an object because it is below its viewing limitations),
-isLeftTouched() and isRIghtTouched() respectiveley, return true for isDetected, the robot is stopped, the
-detecor thread yields and findLight() stops the robot and reverses it.
+isLeftTouched() and isRIghtTouched() respectiveley, return true for isDetected, the robot is stopped, and the
+detector thread yields.   
 
+Finally, just like in the first milestone, when the robot encounters the light, it stops, turns around, 
+and finishes up the lap.   
+
+## Milestone 3 Report   
+### Responsibilities of the classes in this milestone   
+TODO   
+
+### Sub-tasks that the robot should execute after an obstacle is detected   
+TODO   
+
+### Next steps after handling objects detection   
+TODO    
+
+### Flow of information and control among Racer, Detector, and Avoider   
+TODO
