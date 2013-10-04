@@ -34,7 +34,8 @@ public class Milestone3 {
 		Racer racer = new Racer(scanner, pilot);
 		
 		// Wait for a press, and GO GO GO
+		System.out.println("Wating to start");
 		Button.waitForAnyPress();
-		racer.findLight();
+		racer.toLightMilestone3();
 	}
 }

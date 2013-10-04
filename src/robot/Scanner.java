@@ -22,6 +22,7 @@ public class Scanner {
 	private TouchSensor rightTouchSensor;
 	private int xAngle = 0;
 	private int xLight = 0;
+	private int minDistance = 255;
 	
 	/**
 	 * Constructor for Scanner class that takes in the motor and lightsensor as params
@@ -64,6 +65,20 @@ public class Scanner {
 		}
 	}
 	
+	public void scanObject(int limit){
+		minDistance = 255;
+		int distance;
+		motor.rotateTo(-limit);
+		motor.rotateTo(limit, true);
+		while (motor.isMoving()) {
+			distance = ultraSensor.getDistance();
+			if (distance < minDistance) {
+				minDistance = distance;
+				xAngle = motor.getTachoCount();
+			}
+		}		
+	}
+	
 	/**
 	 * Get the current Angle from TachoCount()
 	 * @return xAngle : angle from TachoCount()
@@ -78,6 +93,14 @@ public class Scanner {
 	 */
 	public int getLight(){
 		return xLight;
+	}
+	
+	/** 
+	 * Returns the min distance to the closest object
+	 * @return
+	 */
+	public int getMinDistance() {
+		return minDistance;
 	}
 	
 	/**

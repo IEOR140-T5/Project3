@@ -14,7 +14,7 @@ public class Racer {
 	/**
 	 * Static variables
 	 */
-	public static final double THRESHOLD = 55;
+	public static final double THRESHOLD = 60;
 
 	/**
 	 * Instance variables
@@ -22,7 +22,7 @@ public class Racer {
 	private Scanner scanner;
 	private DifferentialPilot pilot;
 	private int distanceLimit = 25;
-	private int _scanAngle = 60;
+	public static final int _scanAngle = 45;
 
 	/**
 	 * Constructor for Racer, which takes in a Scanner and a DifferentialPilot
@@ -35,6 +35,7 @@ public class Racer {
 	public Racer(Scanner s, DifferentialPilot dp) {
 		scanner = s;
 		pilot = dp;
+		//pilot.setTravelSpeed(400);
 	}
 
 	/**
@@ -137,14 +138,75 @@ public class Racer {
 			}
 		}
 	}
+	
+	/**
+	 * Find light for Milestone 3, since we want to find the light while 
+	 * detecting obstacles this time
+	 */
+	public void toLightMilestone3(){
+		scanner.rotateTo(0, true);
+		Detector detector = new Detector();
+		Avoider avoider = new Avoider(this, scanner);
+		detector.start();
+		
+		// Three loops of detectors are necessary to always look out for
+		// detectors while scanning twice back and forth
+		while (true) {
+			LCD.clear();
+			
+			if (detector.isDetected) {
+				avoider.avoid();
+				detector = new Detector();
+				detector.start();
+			}
+			
+			// First scan
+			scanner.scanTo(_scanAngle);
+			toAngle(scanner.getAngle());
+			LCD.drawInt((int) scanner.getLight(), 0, 0);
+			
+			if (detector.isDetected) {
+				avoider.avoid();;
+				detector = new Detector();
+				detector.start();
+			}
+			
+			// Second scan
+			scanner.scanTo(-_scanAngle);
+			toAngle(scanner.getAngle());
+			LCD.drawInt((int) scanner.getLight(), 0, 0);
+			
+			if (detector.isDetected) {
+				avoider.avoid();
+				detector = new Detector();
+				detector.start();
+			}
+			
+			// Has the robot found the light?
+			if (scanner.getLight() > THRESHOLD) {
+				stopRobot();
+				sleepRobot(500);
+				turnAround();
+				break;
+			}
+		}
+	}
 
+	public void travel(int distance){
+		pilot.travel(distance);
+	}
+	
 	/**
 	 * Tasks to perform when object is detected
 	 */
 	public void whenDetected() {
 		pilot.travel(-30);
 		scanner.rotateTo(0, true);
-		Button.ENTER.waitForPressAndRelease();
+		//Button.ENTER.waitForPressAndRelease();
+	}
+	
+	public void turnPilot(int degree){
+		pilot.rotate(degree);
 	}
 
 	/**
@@ -208,6 +270,10 @@ public class Racer {
 				}
 				Thread.yield();
 			}
+		}
+		
+		public int getAngle(){
+			return scanner.getAngle();
 		}
 
 		/**
