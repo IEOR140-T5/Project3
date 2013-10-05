@@ -8,7 +8,7 @@ import lejos.nxt.TouchSensor;
 /**
  * Scanner class which implements logic for scanning lights and obstacles
  * Adapted from ScanRecorder.java in the skeleton
- * @author Corey Short, Khoa Tran
+ * @author Corey Short, Khoa Tran, Phuoc Nguyen
  */
 public class Scanner {
 

@@ -3,6 +3,7 @@ package robot;
 import lejos.nxt.LCD;
 import lejos.nxt.Button;
 import lejos.robotics.navigation.DifferentialPilot;
+import lejos.util.Delay;
 
 /**
  * Racer class that implements the logic for robot going toward the light
@@ -149,13 +150,13 @@ public class Racer {
 		Avoider avoider = new Avoider(this, scanner);
 		detector.start();
 		
+		LCD.clear();
 		// Three loops of detectors are necessary to always look out for
 		// detectors while scanning twice back and forth
 		while (true) {
-			LCD.clear();
 			
 			if (detector.isDetected) {
-				avoider.avoid();
+				avoider.avoid(detector.whichIsDetected);
 				detector = new Detector();
 				detector.start();
 			}
@@ -163,10 +164,10 @@ public class Racer {
 			// First scan
 			scanner.scanTo(_scanAngle);
 			toAngle(scanner.getAngle());
-			LCD.drawInt((int) scanner.getLight(), 0, 0);
+			LCD.drawInt((int) scanner.getLight(), 0, 1);
 			
 			if (detector.isDetected) {
-				avoider.avoid();;
+				avoider.avoid(detector.whichIsDetected);
 				detector = new Detector();
 				detector.start();
 			}
@@ -174,10 +175,10 @@ public class Racer {
 			// Second scan
 			scanner.scanTo(-_scanAngle);
 			toAngle(scanner.getAngle());
-			LCD.drawInt((int) scanner.getLight(), 0, 0);
+			LCD.drawInt((int) scanner.getLight(), 0, 1);
 			
 			if (detector.isDetected) {
-				avoider.avoid();
+				avoider.avoid(detector.whichIsDetected);
 				detector = new Detector();
 				detector.start();
 			}
@@ -185,7 +186,7 @@ public class Racer {
 			// Has the robot found the light?
 			if (scanner.getLight() > THRESHOLD) {
 				stopRobot();
-				sleepRobot(500);
+				Delay.msDelay(500);
 				turnAround();
 				break;
 			}
@@ -206,7 +207,7 @@ public class Racer {
 	}
 	
 	public void turnPilot(int degree){
-		pilot.rotate(degree);
+		pilot.rotate(degree, false);
 	}
 
 	/**
@@ -256,15 +257,22 @@ public class Racer {
 		 * Instance variables
 		 */
 		boolean isDetected = false;
+		int whichIsDetected = 0; //1 is ultra sensor detected, 2 is touch sensor detected
 
 		/**
 		 * Runs the detector
 		 */
 		public void run() {
 			while (!isDetected) {
-				LCD.drawInt((int) getDistance(), 0,1);
+				LCD.drawInt((int) getDistance(), 0, 2);
 
-				if ((getDistance() < distanceLimit) || (isLeftTouched()) || (isRightTouched()))  {
+				if ((getDistance() < distanceLimit))  {
+					whichIsDetected = 1;
+					isDetected = true;
+					stopRobot();
+				}
+				if ((isLeftTouched()) || (isRightTouched()))  {
+					whichIsDetected = 2;
 					isDetected = true;
 					stopRobot();
 				}
