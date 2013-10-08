@@ -15,7 +15,7 @@ public class Racer {
 	/**
 	 * Static variables
 	 */
-	public static final double THRESHOLD = 60;
+	public static final double THRESHOLD = 55;
 
 	/**
 	 * Instance variables
@@ -154,8 +154,8 @@ public class Racer {
 		// Three loops of detectors are necessary to always look out for
 		// detectors while scanning twice back and forth
 		while (true) {
-			
 			if (detector.isDetected) {
+				if (foundLight()) break; // detect light as obstacle
 				avoider.avoid(detector.whichIsDetected);
 				detector = new Detector();
 				detector.start();
@@ -167,6 +167,7 @@ public class Racer {
 			LCD.drawInt((int) scanner.getLight(), 0, 1);
 			
 			if (detector.isDetected) {
+				if (foundLight()) break; // detect light as obstacle
 				avoider.avoid(detector.whichIsDetected);
 				detector = new Detector();
 				detector.start();
@@ -178,19 +179,27 @@ public class Racer {
 			LCD.drawInt((int) scanner.getLight(), 0, 1);
 			
 			if (detector.isDetected) {
+				if (foundLight()) break; // detect light as obstacle
 				avoider.avoid(detector.whichIsDetected);
 				detector = new Detector();
 				detector.start();
 			}
 			
+			if (foundLight()) break;
+			
 			// Has the robot found the light?
-			if (scanner.getLight() > THRESHOLD) {
-				stopRobot();
-				Delay.msDelay(500);
-				turnAround();
-				break;
-			}
+			
 		}
+	}
+	
+	private boolean foundLight() {
+		if (scanner.getLight() > THRESHOLD) {
+			stopRobot();
+			Delay.msDelay(500);
+			turnAround();
+			return true;
+		}
+		return false;
 	}
 
 	public void travel(int distance){

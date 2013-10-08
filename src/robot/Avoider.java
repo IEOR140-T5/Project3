@@ -15,7 +15,7 @@ public class Avoider {
 
 	private Racer racer;
 	private Scanner scanner;
-	private int _turnAngle = 45;
+	private int _turnAngle = 30;
 	
 	/**
 	 * Public constructor for Avoider class
@@ -37,7 +37,7 @@ public class Avoider {
 		
 		boolean tooCloseToRight = objectAngle < 0;
 		
-		// This is when the ultra sensor detects an object nearby
+		// This is when the ultrasonic sensor detects an object nearby
 		if (whichIsDetected == 1){
 			// object is at right - beep once
 			if (tooCloseToRight) {
@@ -49,8 +49,13 @@ public class Avoider {
 			}
 		// This is when the Touch Sensor detects
 		} else {
-			Sound.twoBeeps();Sound.twoBeeps();
-			racer.turnPilot(_turnAngle);
+			if (scanner.isRightTouched()) {
+				Sound.beep(); 
+				racer.turnPilot(_turnAngle); // turn left
+			} else {
+				Sound.twoBeeps();
+				racer.turnPilot(-_turnAngle); // turn right
+			}
 		}
 		//Delay.msDelay(200);
 		racer.travel(25);

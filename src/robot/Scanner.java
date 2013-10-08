@@ -140,4 +140,18 @@ public class Scanner {
 	protected TouchSensor getRightTouchSensor(){
 		return rightTouchSensor;
 	}
+	
+	/**
+	 * Returns True/False when the Left Touch Sensor is touched
+	 */
+	public boolean isLeftTouched() {
+		return getLeftTouchSensor().isPressed();
+	}
+
+	/**
+	 * Returns True/False when the Right Touch Sensor is touched
+	 */
+	public boolean isRightTouched() {
+		return getRightTouchSensor().isPressed();
+	}
 }
