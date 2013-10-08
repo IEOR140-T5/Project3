@@ -36,11 +36,12 @@ public class Racer {
 	public Racer(Scanner s, DifferentialPilot dp) {
 		scanner = s;
 		pilot = dp;
-		//pilot.setTravelSpeed(400);
+		// pilot.setTravelSpeed(400);
 	}
 
 	/**
-	 * Completes two round trips for Milestone 1 by going to the lights back and forth
+	 * Completes two round trips for Milestone 1 by going to the lights back and
+	 * forth
 	 */
 	public void toLight() {
 		for (int i = 0; i < 2; i++) {
@@ -91,7 +92,7 @@ public class Racer {
 	}
 
 	/**
-	 * Find light for Milestone 2, since we want to find the light while 
+	 * Find light for Milestone 2, since we want to find the light while
 	 * detecting obstacles this time
 	 */
 	public void findLight() {
@@ -107,29 +108,29 @@ public class Racer {
 				detector = new Detector();
 				detector.start();
 			}
-			
+
 			// First scan
 			scanner.scanTo(_scanAngle);
 			toAngle(scanner.getAngle());
 			LCD.drawInt((int) scanner.getLight(), 0, 0);
-			
+
 			if (detector.isDetected) {
 				whenDetected();
 				detector = new Detector();
 				detector.start();
 			}
-			
+
 			// Second scan
 			scanner.scanTo(-_scanAngle);
 			toAngle(scanner.getAngle());
 			LCD.drawInt((int) scanner.getLight(), 0, 0);
-			
+
 			if (detector.isDetected) {
 				whenDetected();
 				detector = new Detector();
 				detector.start();
 			}
-			
+
 			// Has the robot found the light?
 			if (scanner.getLight() > THRESHOLD) {
 				stopRobot();
@@ -139,59 +140,63 @@ public class Racer {
 			}
 		}
 	}
-	
+
 	/**
-	 * Find light for Milestone 3, since we want to find the light while 
+	 * Find light for Milestone 3, since we want to find the light while
 	 * detecting obstacles this time
 	 */
-	public void toLightMilestone3(){
+	public void toLightMilestone3() {
 		scanner.rotateTo(0, true);
 		Detector detector = new Detector();
 		Avoider avoider = new Avoider(this, scanner);
 		detector.start();
-		
+
 		LCD.clear();
 		// Three loops of detectors are necessary to always look out for
 		// detectors while scanning twice back and forth
 		while (true) {
 			if (detector.isDetected) {
-				if (foundLight()) break; // detect light as obstacle
+				if (foundLight())
+					break; // detect light as obstacle
 				avoider.avoid(detector.whichIsDetected);
 				detector = new Detector();
 				detector.start();
 			}
-			
+
 			// First scan
 			scanner.scanTo(_scanAngle);
 			toAngle(scanner.getAngle());
 			LCD.drawInt((int) scanner.getLight(), 0, 1);
-			
+
 			if (detector.isDetected) {
-				if (foundLight()) break; // detect light as obstacle
+				if (foundLight())
+					break; // detect light as obstacle
 				avoider.avoid(detector.whichIsDetected);
 				detector = new Detector();
 				detector.start();
 			}
-			
+
 			// Second scan
 			scanner.scanTo(-_scanAngle);
 			toAngle(scanner.getAngle());
 			LCD.drawInt((int) scanner.getLight(), 0, 1);
-			
+
 			if (detector.isDetected) {
-				if (foundLight()) break; // detect light as obstacle
+				if (foundLight())
+					break; // detect light as obstacle
 				avoider.avoid(detector.whichIsDetected);
 				detector = new Detector();
 				detector.start();
 			}
-			
-			if (foundLight()) break;
-			
+
+			if (foundLight())
+				break;
+
 			// Has the robot found the light?
-			
+
 		}
 	}
-	
+
 	private boolean foundLight() {
 		if (scanner.getLight() > THRESHOLD) {
 			stopRobot();
@@ -202,20 +207,20 @@ public class Racer {
 		return false;
 	}
 
-	public void travel(int distance){
+	public void travel(int distance) {
 		pilot.travel(distance);
 	}
-	
+
 	/**
 	 * Tasks to perform when object is detected
 	 */
 	public void whenDetected() {
 		pilot.travel(-30);
 		scanner.rotateTo(0, true);
-		//Button.ENTER.waitForPressAndRelease();
+		// Button.ENTER.waitForPressAndRelease();
 	}
-	
-	public void turnPilot(int degree){
+
+	public void turnPilot(int degree) {
 		pilot.rotate(degree, false);
 	}
 
@@ -242,7 +247,9 @@ public class Racer {
 
 	/**
 	 * Steers to a specific angle
-	 * @param angle - the angle to steer to
+	 * 
+	 * @param angle
+	 *            - the angle to steer to
 	 */
 	private void toAngle(double angle) {
 		pilot.steer(angle);
@@ -254,7 +261,7 @@ public class Racer {
 	private void turnAround() {
 		pilot.rotate(220);
 		scanner.rotateTo(0, false);
-		//pilot.steer(0); // travel straight
+		// pilot.steer(0); // travel straight
 	}
 
 	/**
@@ -266,7 +273,8 @@ public class Racer {
 		 * Instance variables
 		 */
 		boolean isDetected = false;
-		int whichIsDetected = 0; //1 is ultra sensor detected, 2 is touch sensor detected
+		int whichIsDetected = 0; // 1 is ultra sensor detected, 2 is touch
+									// sensor detected
 
 		/**
 		 * Runs the detector
@@ -275,12 +283,12 @@ public class Racer {
 			while (!isDetected) {
 				LCD.drawInt((int) getDistance(), 0, 2);
 
-				if ((getDistance() < distanceLimit))  {
+				if ((getDistance() < distanceLimit)) {
 					whichIsDetected = 1;
 					isDetected = true;
 					stopRobot();
 				}
-				if ((isLeftTouched()) || (isRightTouched()))  {
+				if ((isLeftTouched()) || (isRightTouched())) {
 					whichIsDetected = 2;
 					isDetected = true;
 					stopRobot();
@@ -288,8 +296,8 @@ public class Racer {
 				Thread.yield();
 			}
 		}
-		
-		public int getAngle(){
+
+		public int getAngle() {
 			return scanner.getAngle();
 		}
 
