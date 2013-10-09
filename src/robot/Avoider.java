@@ -26,6 +26,8 @@ public class Avoider {
 	}
 
 	public void avoid(int whichIsDetected) {
+		Random random = new Random();
+		_turnAngle = random.nextInt(45);
 		int objectAngle;
 		racer.travel(-15);
 		scanner.scanObject(racer._scanAngle);
