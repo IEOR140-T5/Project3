@@ -115,6 +115,9 @@ public class Scanner {
 		return minDistance;
 	}
 
+	public int getDistance(){
+		return ultraSensor.getDistance();
+	}
 	/**
 	 * Set the Light value
 	 * 

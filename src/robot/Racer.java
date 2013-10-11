@@ -21,7 +21,7 @@ public class Racer {
 	 * Instance variables
 	 */
 	private Scanner scanner;
-	private DifferentialPilot pilot;
+	public DifferentialPilot pilot;
 	private int distanceLimit = 25;
 	public static final int _scanAngle = 45;
 
@@ -155,45 +155,50 @@ public class Racer {
 		// Three loops of detectors are necessary to always look out for
 		// detectors while scanning twice back and forth
 		while (true) {
-			if (detector.isDetected) {
+			pilot.travel(2);
+			while (true) {
+				if (detector.isDetected) {
+					if (foundLight())
+						break; // detect light as obstacle
+					avoider.avoid(detector.whichIsDetected);
+					detector = new Detector();
+					detector.start();
+				}
+	
+				// First scan
+				scanner.scanTo(_scanAngle);
+				toAngle(scanner.getAngle());
+				LCD.drawInt((int) scanner.getLight(), 0, 1);
+	
+				if (detector.isDetected) {
+					if (foundLight())
+						break; // detect light as obstacle
+					avoider.avoid(detector.whichIsDetected);
+					detector = new Detector();
+					detector.start();
+				}
+	
+				// Second scan
+				scanner.scanTo(-_scanAngle);
+				toAngle(scanner.getAngle());
+				LCD.drawInt((int) scanner.getLight(), 0, 1);
+	
+				if (detector.isDetected) {
+					if (foundLight())
+						break; // detect light as obstacle
+					avoider.avoid(detector.whichIsDetected);
+					detector = new Detector();
+					detector.start();
+				}
+	
 				if (foundLight())
-					break; // detect light as obstacle
-				avoider.avoid(detector.whichIsDetected);
-				detector = new Detector();
-				detector.start();
+					break;
+	
+				// Has the robot found the light?
+	
 			}
-
-			// First scan
-			scanner.scanTo(_scanAngle);
-			toAngle(scanner.getAngle());
-			LCD.drawInt((int) scanner.getLight(), 0, 1);
-
-			if (detector.isDetected) {
-				if (foundLight())
-					break; // detect light as obstacle
-				avoider.avoid(detector.whichIsDetected);
-				detector = new Detector();
-				detector.start();
-			}
-
-			// Second scan
-			scanner.scanTo(-_scanAngle);
-			toAngle(scanner.getAngle());
-			LCD.drawInt((int) scanner.getLight(), 0, 1);
-
-			if (detector.isDetected) {
-				if (foundLight())
-					break; // detect light as obstacle
-				avoider.avoid(detector.whichIsDetected);
-				detector = new Detector();
-				detector.start();
-			}
-
-			if (foundLight())
-				break;
-
-			// Has the robot found the light?
-
+			detector = new Detector();
+			detector.start();
 		}
 	}
 
@@ -251,7 +256,7 @@ public class Racer {
 	 * @param angle
 	 *            - the angle to steer to
 	 */
-	private void toAngle(double angle) {
+	public void toAngle(double angle) {
 		pilot.steer(angle);
 	}
 

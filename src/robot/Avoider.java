@@ -28,26 +28,44 @@ public class Avoider {
 	public void avoid(int whichIsDetected) {
 		Random random = new Random();
 		_turnAngle = random.nextInt(45);
+		int objectDistance = scanner.getDistance();
 		int objectAngle;
 		racer.travel(-15);
 		scanner.scanObject(racer._scanAngle);
 		scanner.rotateTo(0, false);
 		objectAngle = scanner.getAngle();
+		
 
 		LCD.clear();
 		LCD.drawInt((int) objectAngle, 0, 0);
 
-		boolean tooCloseToRight = objectAngle < 0;
+		boolean tooCloseToRight = objectAngle < 5;
 
 		// This is when the ultrasonic sensor detects an object nearby
 		if (whichIsDetected == 1) {
 			// object is at right - beep once
 			if (tooCloseToRight) {
 				Sound.beep();
-				racer.turnPilot(_turnAngle); // turn left
+				scanner.rotateTo(-90, false);
+				racer.turnPilot(90);				
+				//racer.turnPilot(_turnAngle); // turn left
 			} else { // object is at left - beep twice
 				Sound.twoBeeps();
-				racer.turnPilot(-_turnAngle); // turn right
+				scanner.rotateTo(90, false);
+				racer.turnPilot(-90);
+				//racer.turnPilot(-_turnAngle); // turn right
+			}
+			while(objectDistance < 60){				
+				racer.toAngle(0);
+				objectDistance = scanner.getDistance();
+			}
+			
+			if(tooCloseToRight)	{ 
+				racer.pilot.travelArc(-30,10 * Math.PI);
+				scanner.rotateTo(0, true);
+			} else {
+				racer.pilot.travelArc(30,10 * Math.PI);
+				scanner.rotateTo(0, true);
 			}
 		}
 		
@@ -63,6 +81,6 @@ public class Avoider {
 			racer.turnPilot(-_turnAngle); // turn left
 		}
 		
-		racer.travel(25);
+		racer.travel(20);
 	}
 }
