@@ -115,19 +115,23 @@ of the sensors, twice relays that object is on the left.
 
 ### Sub-tasks that the robot should execute after an obstacle is detected   
 As the robot is traversing through the obstacle course, when an object is detected we do the following:
-  1. Determine which sensor detected the object.
-  2. Determine where the relative location of said object is.
-  3. Reverse.
-  4. Rotate Using Random Number (Angle) Generator.
-  5. Continue to proceed on path.
+    1. Determine which sensor detected the object.
+    2. Pause the detections until we are out of range. (The object detected notifies the Detector to stop).
+    3. Determine where the relative location of said object is.
+    4. Reverse.
+    5. Rotate Using Random Number (Angle) Generator.
+    6. Tell Detector to continue detecting.
+    7. Continue to proceed on path.
 
 ### Next steps after handling objects detection   
 Throughout the obstacle course, our rover is continously searching and seeking for the final destination light.
+We chose to implement a constant variable named THRESHOLD and chose to set the value to 55 after some careful testing.
+This constant value is what allows our rover to know that it has rearched the final destination light. 
 This light determines that we have completed the course and notifies our rover to:
-  1. Stop Motion
-  2. Relay Stop to subprocesses
-  3. Rotate 180 degrees
-  4. Complete Obstacle course
+    1. Stop Motion
+    2. Relay Stop to subprocesses
+    3. Rotate 180 degrees
+    4. Complete Obstacle course
 
 
 ### Flow of information and control among Racer, Detector, and Avoider   
