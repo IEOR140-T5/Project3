@@ -36,7 +36,7 @@ public class Racer {
 	public Racer(Scanner s, DifferentialPilot dp) {
 		scanner = s;
 		pilot = dp;
-		// pilot.setTravelSpeed(400);
+		pilot.setTravelSpeed((double)pilot.getMaxTravelSpeed());
 	}
 
 	/**
@@ -288,8 +288,13 @@ public class Racer {
 					isDetected = true;
 					stopRobot();
 				}
-				if ((isLeftTouched()) || (isRightTouched())) {
+				if ((isLeftTouched())) {
 					whichIsDetected = 2;
+					isDetected = true;
+					stopRobot();
+				}
+				if ((isRightTouched())) {
+					whichIsDetected = 3;
 					isDetected = true;
 					stopRobot();
 				}

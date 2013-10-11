@@ -49,15 +49,20 @@ public class Avoider {
 				Sound.twoBeeps();
 				racer.turnPilot(-_turnAngle); // turn right
 			}
-		} else { // This is when the Touch Sensor detects
-			if (scanner.isRightTouched()) {
-				Sound.beep();
-				racer.turnPilot(_turnAngle); // turn left
-			} else {
-				Sound.twoBeeps();
-				racer.turnPilot(-_turnAngle); // turn right
-			}
 		}
+		
+		// This is when the Left Touch Sensor detects
+		if (whichIsDetected == 2) {
+			Sound.beep();
+			racer.turnPilot(_turnAngle); // turn left
+		}
+		
+		// This is when the Left Touch Sensor detects
+		if (whichIsDetected == 3) {
+			Sound.beep();
+			racer.turnPilot(-_turnAngle); // turn left
+		}
+		
 		racer.travel(25);
 	}
 }
