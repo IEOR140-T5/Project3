@@ -115,6 +115,7 @@ of the sensors, twice relays that object is on the left.
 
 ### Sub-tasks that the robot should execute after an obstacle is detected   
 As the robot is traversing through the obstacle course, when an object is detected we do the following:
+
     1. Determine which sensor detected the object.
     2. Pause the detections until we are out of range. (The object detected notifies the Detector to stop).
     3. Determine where the relative location of said object is.
@@ -128,6 +129,7 @@ Throughout the obstacle course, our rover is continously searching and seeking f
 We chose to implement a constant variable named THRESHOLD and chose to set the value to 55 after some careful testing.
 This constant value is what allows our rover to know that it has rearched the final destination light. 
 This light determines that we have completed the course and notifies our rover to:
+
     1. Stop Motion
     2. Relay Stop to subprocesses
     3. Rotate 180 degrees
