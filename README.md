@@ -147,5 +147,5 @@ This light determines that we have completed the course and notifies our rover t
                     |                                   |
                     |                                   |
                     |                                   |
-Scanner(Detector relays information to Scanner)          Warns Detector of Objects, pauses detetction.
+    Scanner(Detector relays information to Scanner)          Warns Detector of Objects, pauses detetction.
                                 
