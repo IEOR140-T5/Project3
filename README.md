@@ -137,4 +137,15 @@ This light determines that we have completed the course and notifies our rover t
 
 
 ### Flow of information and control among Racer, Detector, and Avoider   
-TODO
+
+
+                                >  Racer
+                              /           \
+                             /             \
+                           <                 > 
+            Detector(inner class)         Avoider(communicates with Racer)
+                    |                                   |
+                    |                                   |
+                    |                                   |
+Scanner(Detector relays information to Scanner)          Warns Detector of Objects, pauses detetction.
+                                
