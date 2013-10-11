@@ -105,13 +105,30 @@ and finishes up the lap.
 
 ## Milestone 3 Report   
 ### Responsibilities of the classes in this milestone   
-TODO   
+Milestone 3 implements all of the classes from the previous milestones with a few crucial changes and additions. Instead of putting the avoid logic
+in the Racer class, we chose to implement a separate Avoider class itself. As recommending by Glassey, our avoid() function uses a Random object
+to determine angles to choose from. Prior to this recommendation, we were simply reversing the robot and turning 45 degrees. This proved to be
+somewhat troublesome due to increased unecessary manuevers. For example, we have a better chance of making a correct turn angle if the choices are randomized.
+Our avoid() method takes in an integer argument that allows us to determine which sensors is relaying information to ourselves. Next, we also chose to implement 
+the rovers built-in Sound.beep() in order to notion the specific location of an object. I.e. if our rover beeps once, we know the object is on the right most side 
+of the sensors, twice relays that object is on the left. 
 
 ### Sub-tasks that the robot should execute after an obstacle is detected   
-TODO   
+As the robot is traversing through the obstacle course, when an object is detected we do the following:
+  1. Determine which sensor detected the object.
+  2. Determine where the relative location of said object is.
+  3. Reverse.
+  4. Rotate Using Random Number (Angle) Generator.
+  5. Continue to proceed on path.
 
 ### Next steps after handling objects detection   
-TODO    
+Throughout the obstacle course, our rover is continously searching and seeking for the final destination light.
+This light determines that we have completed the course and notifies our rover to:
+  1. Stop Motion
+  2. Relay Stop to subprocesses
+  3. Rotate 180 degrees
+  4. Complete Obstacle course
+
 
 ### Flow of information and control among Racer, Detector, and Avoider   
 TODO
